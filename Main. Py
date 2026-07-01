@@ -1,15 +1,20 @@
 from fastapi import FastAPI
+from routes import channels, episodes, search
 
 app = FastAPI(
     title="Pokemon TV Reborn API",
-    description="Backend for Pokemon TV Reborn",
     version="1.0"
 )
 
+app.include_router(channels.router)
+app.include_router(episodes.router)
+app.include_router(search.router)
+
 @app.get("/")
-def home():
+def root():
     return {
-        "app": "Pokemon TV Reborn",
-        "version": "1.0",
-        "status": "Running"
+        "name": "Pokemon TV Reborn",
+        "status": "online",
+        "version": "1.0"
     }
+    
